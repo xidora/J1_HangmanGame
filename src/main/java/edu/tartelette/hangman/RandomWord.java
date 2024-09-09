@@ -10,14 +10,24 @@ public class RandomWord {
     public static String getRandomWord() {
         RandomWord.getLibraryOfWords();
         Random aRandom = new Random();
-        int wordsNumber = aRandom.nextInt(libraryOfWords.size() - 1);
+        int wordsNumber = aRandom.nextInt(libraryOfWords.size());
+        System.out.println("Rand = " +wordsNumber);
         return libraryOfWords.get(wordsNumber);
     }
 
     public static void getLibraryOfWords() {
-        Scanner aScanner = new Scanner(ClassLoader.getSystemResourceAsStream("dic.txt"));
-        while (aScanner.hasNext()) {
-            libraryOfWords.add(aScanner.nextLine());
+        try {
+            if (ClassLoader.getSystemResourceAsStream("dic.txt") == null) {
+                throw new FileNotFoundException("File not found ");
+            }
+            Scanner aScanner = new Scanner(ClassLoader.getSystemResourceAsStream("dic.txt"));
+            while (aScanner.hasNext()) {
+                libraryOfWords.add(aScanner.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Caught Exception: " + e.getMessage());
+        } finally {
+            libraryOfWords.add("переворот");
         }
     }
 

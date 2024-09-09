@@ -71,5 +71,7 @@ public class HangManArt {
         System.out.print(art[6 - i]);
     }
 
-    private HangManArt() {}
+    public HangManArt(String word) {
+        System.out.println(word);
+    }
 }

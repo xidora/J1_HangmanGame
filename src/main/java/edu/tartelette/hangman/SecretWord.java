@@ -4,12 +4,12 @@ package edu.tartelette.hangman;
 import java.util.HashSet;
 
 public class SecretWord {
-    private static String secretWord;
-    private static StringBuilder visibleWord = new StringBuilder();
+    private static final String secretWord = RandomWord.getRandomWord().toUpperCase();
+
+    private static StringBuilder visibleWord;
     private static SecretWord INSTANCE = new SecretWord();
 
     {
-        secretWord = RandomWord.getRandomWord().toUpperCase();
         visibleWord = new StringBuilder();
         for(int i = 0; i < secretWord.length(); i++) {
             visibleWord.append("*");
@@ -37,7 +37,11 @@ public class SecretWord {
     }
 
     public static void flush() {
-        INSTANCE = new SecretWord();
+        new SecretWord();
+    }
+
+    public static String getSecretWord() {
+        return secretWord;
     }
 
     public static SecretWord getInstance() {
@@ -48,10 +52,5 @@ public class SecretWord {
     }
 
     private SecretWord() {
-        secretWord = RandomWord.getRandomWord().toUpperCase();
-        visibleWord = new StringBuilder();
-        for(int i = 0; i < secretWord.length(); i++) {
-            visibleWord.append("*");
-        }
     }
 }

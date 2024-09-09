@@ -6,8 +6,8 @@ import static edu.tartelette.hangman.HangManArt.printHangManArt;
 
 public class Game {
     private int attemptsLeft = 6;
-    private HashSet<Character> inputtedLetters = new HashSet<>();
-    private HashSet<Character> secretLetters = SecretWord.getSecretLetters();
+    private final HashSet<Character> inputtedLetters = new HashSet<>();
+    private final HashSet<Character> secretLetters = SecretWord.getSecretLetters();
     private static final String WIN_TEXT = "You won";
     private static final String LOSE_TEXT = "You lost";
     private static Game INSTANCE = new Game();
@@ -21,12 +21,12 @@ public class Game {
 
     public void start() {
         while ((attemptsLeft > 0) && (!secretLetters.isEmpty())) {
-            System.out.println("===");
+            System.out.println("====================");
             printHangManArt(attemptsLeft);
             System.out.print("Attempts Left: " + attemptsLeft + "| ");
             System.out.println("Inputted Letters: " + inputtedLetters);
             System.out.println("Visible word: " + SecretWord.getVisibleWord());
-            char letter = Letter.get();
+            char letter = LetterInput.get();
             inputtedLetters.add(letter);
             if(checkLetter(letter)) {
                 SecretWord.revealLetter(letter);
@@ -34,24 +34,21 @@ public class Game {
                 attemptsLeft--;
             }
         }
-        System.out.println("attemptsLeft =" + attemptsLeft);
-        System.out.println("secretLetters =" + secretLetters);
+        System.out.println("====================");
         if (attemptsLeft > 0) {
             System.out.println(WIN_TEXT);
         } else {
             System.out.println(LOSE_TEXT);
+            printHangManArt(attemptsLeft);
         }
-        Game.flush();
+        System.out.println("Secret Word is: " + SecretWord.getSecretWord());
         SecretWord.flush();
+        Game.flush();
         Choicer.start();
     }
 
     public HashSet<Character> getInputtedLetters() {
         return inputtedLetters;
-    }
-
-    public void addSecretLetter(char letter) {
-        secretLetters.add(letter);
     }
 
     private static void flush() {
@@ -67,5 +64,6 @@ public class Game {
         }
     }
 
-    private Game() {}
+    private Game() {
+    }
 }
