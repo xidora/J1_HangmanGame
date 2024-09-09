@@ -42,7 +42,7 @@ public class Game {
             printHangManArt(attemptsLeft);
         }
         System.out.println("Secret Word is: " + SecretWord.getSecretWord());
-        SecretWord.flush();
+        SecretWord.refresh();
         Game.flush();
         Choicer.start();
     }
@@ -64,6 +64,5 @@ public class Game {
         }
     }
 
-    private Game() {
-    }
+    private Game() {}
 }

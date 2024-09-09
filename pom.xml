@@ -29,7 +29,7 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <mainClass>edu.kotleta.hangman.HangManGame</mainClass>
+                                <mainClass>edu.tartelette.hangman.Main</mainClass>
                             </manifest>
                         </archive>
                     </configuration>
@@ -39,7 +39,7 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <mainClass>edu.kotleta.hangman.HangManGame</mainClass>
+                                <mainClass>edu.tartelette.hangman.Main</mainClass>
                             </manifest>
                         </archive>
                         <descriptorRefs>

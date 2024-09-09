@@ -7,7 +7,6 @@ public class SecretWord {
     private static final String secretWord = RandomWord.getRandomWord().toUpperCase();
 
     private static StringBuilder visibleWord;
-    private static SecretWord INSTANCE = new SecretWord();
 
     {
         visibleWord = new StringBuilder();
@@ -36,19 +35,12 @@ public class SecretWord {
         return secretLetters;
     }
 
-    public static void flush() {
+    public static void refresh() {
         new SecretWord();
     }
 
     public static String getSecretWord() {
         return secretWord;
-    }
-
-    public static SecretWord getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new SecretWord();
-        }
-        return INSTANCE;
     }
 
     private SecretWord() {
