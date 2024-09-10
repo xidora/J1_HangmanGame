@@ -7,17 +7,15 @@ import static edu.tartelette.hangman.HangManArt.printHangManArt;
 public class Game {
     private int attemptsLeft = 6;
     private final HashSet<Character> inputtedLetters = new HashSet<>();
-    private final HashSet<Character> secretLetters = SecretWord.getSecretLetters();
+    private SecretWord aSecretWord = new SecretWord();
+    private HashSet<Character> secretLetters = aSecretWord.getStartLetters();
+
     private static final String WIN_TEXT = "You won";
     private static final String LOSE_TEXT = "You lost";
-    private static Game INSTANCE = new Game();
+    private static final String GUESS_IS_RIGHT_TEXT = "Your guess is right";
+    private static final String GUESS_IS_WRONG_TEXT = "Your guess is wrong";
 
-    public static Game getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new Game();
-        }
-        return INSTANCE;
-    }
+    public Game() {}
 
     public void start() {
         while ((attemptsLeft > 0) && (!secretLetters.isEmpty())) {
@@ -25,12 +23,14 @@ public class Game {
             printHangManArt(attemptsLeft);
             System.out.print("Attempts Left: " + attemptsLeft + "| ");
             System.out.println("Inputted Letters: " + inputtedLetters);
-            System.out.println("Visible word: " + SecretWord.getVisibleWord());
-            char letter = LetterInput.get();
+            System.out.println("Visible word: " + aSecretWord.getVisibleWord());
+            char letter = LetterInput.get(inputtedLetters);
             inputtedLetters.add(letter);
             if(checkLetter(letter)) {
-                SecretWord.revealLetter(letter);
+                aSecretWord.revealLetter(letter);
+                System.out.println(GUESS_IS_RIGHT_TEXT);
             } else {
+                System.out.println(GUESS_IS_WRONG_TEXT);
                 attemptsLeft--;
             }
         }
@@ -41,18 +41,8 @@ public class Game {
             System.out.println(LOSE_TEXT);
             printHangManArt(attemptsLeft);
         }
-        System.out.println("Secret Word is: " + SecretWord.getSecretWord());
-        SecretWord.refresh();
-        Game.flush();
+        System.out.println("Secret Word is: " + aSecretWord.getSecretWord());
         Choicer.start();
-    }
-
-    public HashSet<Character> getInputtedLetters() {
-        return inputtedLetters;
-    }
-
-    private static void flush() {
-        INSTANCE = new Game();
     }
 
     private boolean checkLetter(char letter) {
@@ -63,6 +53,4 @@ public class Game {
             return false;
         }
     }
-
-    private Game() {}
 }

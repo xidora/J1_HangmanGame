@@ -1,21 +1,15 @@
 package edu.tartelette.hangman;
 
-
 import java.util.HashSet;
 
 public class SecretWord {
-    private static final String secretWord = RandomWord.getRandomWord().toUpperCase();
 
-    private static StringBuilder visibleWord;
+    private String secretWord = RandomWord.getRandomWord().toUpperCase();
+    private StringBuilder visibleWord = getHiddenWord();
 
-    {
-        visibleWord = new StringBuilder();
-        for(int i = 0; i < secretWord.length(); i++) {
-            visibleWord.append("*");
-        }
-    }
+    public SecretWord() {}
 
-    public static void revealLetter(char letter) {
+    public void revealLetter(char letter) {
         for (int i = 0; i < visibleWord.length(); i++) {
             if (secretWord.charAt(i) == letter) {
                 visibleWord.replace(i, i + 1, letter +"");
@@ -23,11 +17,15 @@ public class SecretWord {
         }
     }
 
-    public static String getVisibleWord() {
+    public String getVisibleWord() {
         return visibleWord.toString();
     }
 
-    public static HashSet<Character> getSecretLetters() {
+    public String getSecretWord() {
+        return secretWord;
+    }
+
+    public HashSet<Character> getStartLetters() {
         HashSet<Character> secretLetters = new HashSet<>();
         for (int i = 0; i < secretWord.length(); i++) {
             secretLetters.add(secretWord.charAt(i));
@@ -35,14 +33,11 @@ public class SecretWord {
         return secretLetters;
     }
 
-    public static void refresh() {
-        new SecretWord();
-    }
-
-    public static String getSecretWord() {
-        return secretWord;
-    }
-
-    private SecretWord() {
+    private StringBuilder getHiddenWord() {
+        StringBuilder hiddenWord = new StringBuilder();
+        for(int i = 0; i < secretWord.length(); i++) {
+            hiddenWord.append("*");
+        }
+        return hiddenWord;
     }
 }

@@ -5,29 +5,34 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class RandomWord {
-    private static final ArrayList<String> libraryOfWords = new ArrayList<>();
 
     public static String getRandomWord() {
+        ArrayList<String> libraryOfWords = RandomWord.getLibraryOfWords();
         RandomWord.getLibraryOfWords();
+
         Random aRandom = new Random();
         int wordsNumber = aRandom.nextInt(libraryOfWords.size());
-        System.out.println("Rand = " +wordsNumber);
         return libraryOfWords.get(wordsNumber);
     }
 
-    public static void getLibraryOfWords() {
+    public static ArrayList<String> getLibraryOfWords() {
+        ArrayList<String> libraryOfWords = new ArrayList<>();
         try {
             if (ClassLoader.getSystemResourceAsStream("dic.txt") == null) {
                 throw new FileNotFoundException("File not found ");
             }
+
             Scanner aScanner = new Scanner(ClassLoader.getSystemResourceAsStream("dic.txt"));
             while (aScanner.hasNext()) {
                 libraryOfWords.add(aScanner.nextLine());
             }
+            return libraryOfWords;
+
         } catch (FileNotFoundException e) {
             System.out.println("Caught Exception: " + e.getMessage());
         } finally {
             libraryOfWords.add("переворот");
+            return libraryOfWords;
         }
     }
 

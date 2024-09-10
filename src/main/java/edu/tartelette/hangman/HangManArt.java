@@ -67,11 +67,11 @@ public class HangManArt {
 """
     };
 
-    protected static void printHangManArt(int i) {
-        System.out.print(art[6 - i]);
-    }
-
     public HangManArt(String word) {
         System.out.println(word);
+    }
+
+    protected static void printHangManArt(int i) {
+        System.out.print(art[6 - i]);
     }
 }

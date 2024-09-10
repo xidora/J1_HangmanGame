@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Choicer {
 
     private static final String CHOICE_TEXT = "===\nType [s] to start or [e] to exit";
+    private static final String INVALID_CHOICE_TEXT = "Type [s] to start or [e] to exit";
 
     public static void start() {
         while (true) {
@@ -13,15 +14,17 @@ public class Choicer {
             String input = aScanner.nextLine().toUpperCase();
             switch (input) {
                 case "S":
-                    Game.getInstance().start();
+                    new Game().start();
                     break;
                 case "E":
                     System.exit(0);
                     break;
                 default:
-                    System.out.println("Invalid choice letter");
+                    System.out.println(INVALID_CHOICE_TEXT);
                     break;
             }
         }
     }
+
+    private Choicer() {}
 }

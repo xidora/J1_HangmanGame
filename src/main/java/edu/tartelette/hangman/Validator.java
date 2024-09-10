@@ -1,9 +1,12 @@
 package edu.tartelette.hangman;
 
+import java.util.HashSet;
+
 import static java.lang.Character.toUpperCase;
 
 public class Validator {
     private static String inputString;
+    private static HashSet<Character> inputtedLetters;
     private static String outputString = "";
 
     public static boolean isValid() {
@@ -18,7 +21,7 @@ public class Validator {
             return false;
         }
 
-        if (Game.getInstance().getInputtedLetters().contains(letter)) {
+        if (inputtedLetters.contains(letter)) {
             outputString = "Used letter";
             return false;
         }
@@ -29,9 +32,10 @@ public class Validator {
         return outputString;
     }
 
-    public static void set (String inputString) {
+    public static void set (String inputString, HashSet<Character> inputtedLetters) {
         Validator.inputString = inputString;
+        Validator.inputtedLetters = inputtedLetters;
     }
 
-
+    private Validator() {}
 }
